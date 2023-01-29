@@ -13,7 +13,6 @@ public class WebConfigurer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
         context.register(AppConfig.class);
-        context.refresh();
 
         Dynamic registration = servletContext.addServlet("dispatcher", new DispatcherServlet(context));
         registration.addMapping("/");
