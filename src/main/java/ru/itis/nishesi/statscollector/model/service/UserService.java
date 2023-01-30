@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.itis.nishesi.statscollector.exceptions.UserAlreadyExistException;
+import ru.itis.nishesi.statscollector.exceptions.UserNotFoundException;
 import ru.itis.nishesi.statscollector.model.dto.User;
 import ru.itis.nishesi.statscollector.model.dto.UserDto;
 import ru.itis.nishesi.statscollector.model.dto.converters.Converters;
@@ -29,5 +30,9 @@ public class UserService {
         user.setRoles(List.of("ROLE_USER"));
 
         return userRepository.save(user);
+    }
+
+    public User getUserByEmail(String email) throws UserNotFoundException {
+        return userRepository.findByEmail(email).orElseThrow(UserNotFoundException::new);
     }
 }
