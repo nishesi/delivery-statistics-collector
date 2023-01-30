@@ -1,4 +1,4 @@
-package ru.itis.nishesi.statscollector.config;
+package ru.itis.nishesi.statscollector.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

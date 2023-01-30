@@ -1,4 +1,4 @@
-package ru.itis.nishesi.statscollector.controller;
+package ru.itis.nishesi.statscollector.security;
 
 import org.springframework.stereotype.Controller;
 
