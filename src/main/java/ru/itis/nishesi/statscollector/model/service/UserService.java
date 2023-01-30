@@ -26,7 +26,7 @@ public class UserService {
 
         User user = Converters.from(userDto);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(List.of("USER"));
+        user.setRoles(List.of("ROLE_USER"));
 
         return userRepository.save(user);
     }
