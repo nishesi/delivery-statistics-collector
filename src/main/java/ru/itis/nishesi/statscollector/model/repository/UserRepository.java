@@ -16,11 +16,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserRepository {
     private static final RowMapper<User> USER_ROW_MAPPER = (rs, rowNum) -> User.builder()
+            .id(rs.getLong("id"))
             .email(rs.getString("email"))
             .password(rs.getString("password"))
             .username(rs.getString("username"))
             .build();
-    private static final String SQL_SELECT_USER = "SELECT email, password, username FROM users WHERE email = :email;";
+    private static final String SQL_SELECT_USER = "SELECT id, email, password, username FROM users WHERE email = :email;";
     private static final String SQL_SELECT_USER_ROLES = "SELECT authority FROM authorities WHERE email = :email;";
     private static final String SQL_INSERT_USER = "INSERT INTO users (email, password, username) VALUES (:email, :password, :username);";
     private static final String SQL_INSERT_AUTHORITY = "INSERT INTO authorities (email, authority) VALUES (:email, :authority);";

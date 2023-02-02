@@ -1,5 +1,7 @@
 package ru.itis.nishesi.statscollector.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,12 +9,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableWebMvc
@@ -35,6 +40,10 @@ public class AppConfig implements WebMvcConfigurer {
         return new HikariDataSource(hikariConfig);
     }
 
+    @Bean
+    NamedParameterJdbcTemplate template(DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
+    }
 
     @Bean
     ViewResolver viewResolver() {
@@ -49,6 +58,13 @@ public class AppConfig implements WebMvcConfigurer {
         FreeMarkerConfigurer configurer = new FreeMarkerConfigurer();
         configurer.setTemplateLoaderPath("/view/");
         return configurer;
+    }
+
+    @Bean
+    ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return objectMapper;
     }
 
     @Override
