@@ -13,14 +13,13 @@ import org.springframework.security.web.authentication.ForwardAuthenticationSucc
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    private final AuthenticationSuccessHandler authenticationSuccessHandler;
-
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/user/register").anonymous()
+                .requestMatchers("/stats/**").authenticated()
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -1,18 +1,19 @@
 package ru.itis.nishesi.statscollector.model.repository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.itis.nishesi.statscollector.model.dto.User;
 
-import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public class UserRepository {
     private static final RowMapper<User> USER_ROW_MAPPER = (rs, rowNum) -> User.builder()
             .email(rs.getString("email"))
@@ -24,10 +25,6 @@ public class UserRepository {
     private static final String SQL_INSERT_USER = "INSERT INTO users (email, password, username) VALUES (:email, :password, :username);";
     private static final String SQL_INSERT_AUTHORITY = "INSERT INTO authorities (email, authority) VALUES (:email, :authority);";
     private final NamedParameterJdbcTemplate jdbcTemplate;
-
-    public UserRepository(DataSource dataSource) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-    }
 
     public Optional<User> findByEmail(String email) {
         try {
