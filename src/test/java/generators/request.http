@@ -1,0 +1,11 @@
+# @no-redirect
+POST /collector/login HTTP/1.1
+Host: localhost:8080
+Content-Type: application/x-www-form-urlencoded
+
+username=user1&password=test
+
+###
+# @no-redirect
+GET /collector/stats/grouped/last/week HTTP/1.1
+Host: localhost:8080
