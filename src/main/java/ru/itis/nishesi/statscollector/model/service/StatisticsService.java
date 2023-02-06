@@ -3,6 +3,7 @@ package ru.itis.nishesi.statscollector.model.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itis.nishesi.statscollector.model.dto.work.Day;
+import ru.itis.nishesi.statscollector.model.dto.work.GroupedDay;
 import ru.itis.nishesi.statscollector.model.repository.StatisticsRepository;
 
 import java.time.LocalDate;
@@ -27,5 +28,10 @@ public class StatisticsService {
     public List<Day> getLastMonthDays(long userId) {
         LocalDate localDate = LocalDate.now();
         return statisticsRepository.getDaysFromTo(userId, localDate.minusMonths(1), localDate);
+    }
+
+    public List<GroupedDay> getLastWeekGroupedDays(long userId) {
+        LocalDate localDate = LocalDate.now();
+        return statisticsRepository.getGroupedDaysFromTo(userId, localDate.minusDays(7), localDate);
     }
 }

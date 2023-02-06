@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.nishesi.statscollector.model.dto.User;
 import ru.itis.nishesi.statscollector.model.dto.work.Day;
+import ru.itis.nishesi.statscollector.model.dto.work.GroupedDay;
 import ru.itis.nishesi.statscollector.model.service.StatisticsService;
 
 import java.util.List;
@@ -33,8 +34,9 @@ public class StatisticsController {
         return statisticsService.getLastMonthDays(user.getId());
     }
 
-    @PostMapping("/add")
-    public Day addDay(@RequestBody Day day) {
-        return day;
+    @GetMapping("/grouped/last/week")
+    @ResponseBody
+    public List<GroupedDay> getLastWeekGroupedDays(@SessionAttribute User user) {
+        return statisticsService.getLastWeekGroupedDays(user.getId());
     }
 }

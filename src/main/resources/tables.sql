@@ -4,11 +4,16 @@ drop table if exists work_dates;
 drop table if exists authorities;
 drop table if exists users;
 
-delete from expenses;
-delete from shifts;
-delete from work_dates;
-delete from authorities;
-delete from users;
+delete
+from expenses;
+delete
+from shifts;
+delete
+from work_dates;
+delete
+from authorities;
+delete
+from users;
 
 -- Common tables
 
@@ -35,9 +40,9 @@ CREATE TABLE work_dates
 (
     id            BIGSERIAL PRIMARY KEY,
     user_id       BIGINT REFERENCES users (id),
-    date          DATE NOT NULL,
-    delivery_gain INT  NOT NULL CHECK ( delivery_gain >= 0 ),
-    comment       VARCHAR(255)
+    date          DATE          NOT NULL,
+    delivery_gain NUMERIC(7, 2) NOT NULL CHECK (delivery_gain >= 0),
+    note          VARCHAR(255)
 );
 
 CREATE TABLE shifts
@@ -46,20 +51,16 @@ CREATE TABLE shifts
     date_id       BIGINT REFERENCES work_dates (id),
     start_time    TIME          NOT NULL,
     end_time      TIME          NOT NULL,
-    average_ratio NUMERIC(4, 2) NOT NULL CHECK ( average_ratio >= 0 ),
+    average_ratio NUMERIC(3, 2) NOT NULL CHECK (average_ratio >= 0),
     orders_count  SMALLINT CHECK (orders_count >= 0),
-    gain          INT CHECK (gain >= 0),
-    distance      NUMERIC(4, 2) NOT NULL CHECK (distance >= 0)
+    gain          NUMERIC(7, 2) CHECK (gain >= 0),
+    distance      NUMERIC(5, 2) NOT NULL CHECK (distance >= 0)
 );
 
 CREATE TABLE expenses
 (
     id      BIGSERIAL PRIMARY KEY,
     date_id BIGINT REFERENCES work_dates (id),
-    name    VARCHAR(50) NOT NULL,
-    value   SMALLINT    NOT NULL CHECK ( value > 0 )
+    name    VARCHAR(50)   NOT NULL,
+    value   NUMERIC(7, 2) NOT NULL CHECK (value > 0)
 );
-
-
-
-select count(*) from work_dates group by user_id;

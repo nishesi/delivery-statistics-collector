@@ -15,8 +15,8 @@ import java.util.List;
 public class Day {
     private Long id;
     private LocalDate date;
-    private int gain;
-    private String message;
+    private float deliveryGain;
     private List<Shift> shifts;
     private List<Expense> expenses;
+    private String note;
 }

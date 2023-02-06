@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class Expense {
     private Long id;
     private String name;
-    private Integer value;
+    private float value;
 }
